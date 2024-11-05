@@ -38,27 +38,7 @@ export default apiInitializer("1.28.0", (api) => {
         this.state.isTranslated = true;
         this.state.isTranslating = true;
         this.scheduleRerender();
-        const post = this.findAncestorModel();
 
-        ajax("/translator/translate", {
-          type: "POST",
-          data: { post_id: post.get("id") },
-        })
-          .then(function (res) {
-            post.setProperties({
-              translated_text: res.translation,
-              detected_lang: res.detected_lang,
-            });
-          })
-          .finally(() => {
-            this.state.isTranslating = false;
-            this.scheduleRerender();
-          })
-          .catch((error) => {
-            this.state.isTranslated = false;
-            this.state.translateError = true;
-            this.scheduleRerender();
-          });
       },
     });
   }
