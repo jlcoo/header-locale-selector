@@ -4,6 +4,7 @@ import { inject as service } from "@ember/service";
 import { ajax } from "discourse/lib/ajax";
 import { userPath } from "discourse/lib/url";
 import { isTesting } from "discourse-common/config/environment";
+import header from "./locale-combo-box/header";
 
 export default class LocaleSelector extends Component {
   @service currentUser;
@@ -21,9 +22,7 @@ export default class LocaleSelector extends Component {
       data: { locale: this.currentUser.locale },
       type: "PUT",
     }).then((val) => {
-      if (!isTesting()) {
-        location.reload();
-      }
+      location.reload();
     });
   }
 
